@@ -32,6 +32,25 @@ export default (env: IEnvirement) => {
               use: 'ts-loader',
               exclude: /node_modules/,
             },
+            {
+              test: /\.less$/i,
+              use: [
+                {
+                  loader: "style-loader",
+                },
+                {
+                  loader: "css-loader",
+                },
+                {
+                  loader: "less-loader",
+                  options: {
+                    lessOptions: {
+                      strictMath: true,
+                    },
+                  },
+                },
+              ],
+            },
           ],
         },
         resolve: {
