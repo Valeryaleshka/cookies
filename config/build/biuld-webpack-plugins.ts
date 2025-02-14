@@ -10,10 +10,9 @@ export default function buildWebpackPlugins(
 
   return [
     isProd && new MiniCssExtractPlugin(),
-    isProd &&
-      new htmlWebpackPlugin({
-        template: options.paths.html,
-        title: options.mode,
-      }),
+    new htmlWebpackPlugin({
+      template: options.paths.html,
+      title: options.mode,
+    }),
   ];
 }

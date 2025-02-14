@@ -9,7 +9,9 @@ export const App = () => {
   return (
     <div>
       <h1>{count}</h1>
-      <button onClick={increment}>Click</button>
+      <button className="redder" onClick={increment}>
+        Click
+      </button>
     </div>
   );
 };

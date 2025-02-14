@@ -21,7 +21,7 @@ export default function buildWebpackLoaders(
               : MiniCssExtractPlugin.loader,
         },
         {
-          loader: 'css-loader',
+          loader: 'css-loader', // Translates CSS into CommonJS
         },
         {
           loader: 'less-loader',
