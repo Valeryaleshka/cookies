@@ -1,12 +1,13 @@
-import { Configuration } from 'webpack-dev-server'
+import { Configuration } from 'webpack-dev-server';
+import { BuildOptions } from './types/webpack-types';
 
 export default function buildWebpackDevServer(
-  isDev: boolean
+  options: BuildOptions
 ): Configuration | undefined {
-  return isDev
+  return options.mode === 'development'
     ? {
-        port: 3001,
+        port: options.port ?? 3000,
         static: './build',
       }
-    : undefined
+    : undefined;
 }

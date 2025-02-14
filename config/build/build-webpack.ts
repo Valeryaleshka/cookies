@@ -1,38 +1,35 @@
-import path from 'path'
-import webpack from 'webpack'
-import 'webpack-dev-server'
-import { IEnvirement } from '../../webpack.config'
-import buildWebpackPlugins from './biuld-webpack-plugins'
-import buildWebpackDevServer from './build-webpack-dev-server'
-import buildWebpackLoaders from './build-webpack-loaders'
+import webpack from 'webpack';
+import 'webpack-dev-server';
+import buildWebpackPlugins from './biuld-webpack-plugins';
+import buildWebpackDevServer from './build-webpack-dev-server';
+import buildWebpackLoaders from './build-webpack-loaders';
+import { BuildOptions } from './types/webpack-types';
 
 export default function buildWebpackConfig(
-  env: IEnvirement,
-  dirName: string
+  options: BuildOptions
 ): webpack.Configuration {
-  const isDev = env.mode === 'development'
-  const isProd = env.mode === 'production'
+  const isDev = options.mode === 'development';
 
   return {
-    mode: env.mode,
-    entry: path.resolve(dirName, 'src', 'index.tsx'),
+    mode: options.mode,
+    entry: options.paths.entry,
     output: {
-      path: path.resolve(dirName, 'build'),
+      path: options.paths.output,
       filename: '[name].[fullhash].js',
       chunkFilename: 'chunk.[fullhash].js',
       clean: true,
     },
-    devServer: buildWebpackDevServer(isDev),
+    devServer: buildWebpackDevServer(options),
     optimization: {
       runtimeChunk: 'single',
     },
-    plugins: buildWebpackPlugins(isProd, env.mode, dirName),
+    plugins: buildWebpackPlugins(options),
     module: {
-      rules: buildWebpackLoaders(isDev),
+      rules: buildWebpackLoaders(options),
     },
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
     },
     devtool: isDev && 'inline-source-map',
-  }
+  };
 }
