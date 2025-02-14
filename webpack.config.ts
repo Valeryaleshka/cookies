@@ -9,13 +9,21 @@ export interface IEnvirement {
 }
 
 export default (env: IEnvirement) => {
+  const isDev = env.mode === 'development'
       const config: webpack.Configuration = {
         mode: env.mode,
-        entry: path.resolve(__dirname, 'src', 'index.ts'),
+        entry: path.resolve(__dirname, 'src', 'index.tsx'),
         output: {
           path: path.resolve(__dirname, 'build'),
           filename: '[name].[fullhash].js',
-           clean: true,
+          clean: true,
+        },
+        devServer: isDev ? {
+          port: 3001,
+          static: './build',
+        } : undefined,
+        optimization: {
+          runtimeChunk: 'single',
         },
         module: {
           rules: [
@@ -29,7 +37,7 @@ export default (env: IEnvirement) => {
         resolve: {
           extensions: [ '.tsx', '.ts', '.js' ],
         },  
-        devtool: env.mode === 'development' ? 'inline-source-map' : undefined,
+        devtool: isDev && 'inline-source-map',
         plugins: [
           new htmlWebpackPlugin(
             {
