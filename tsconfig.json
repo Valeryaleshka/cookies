@@ -1,14 +1,14 @@
 {
     "compilerOptions": {
-      "outDir": "./build/",
-      "noImplicitAny": true,
-      "module": "es2015",
-      "target": "es5",
-      "jsx": "react-jsx",
-      "allowJs": true,
-      "moduleResolution": "node",
-      "allowSyntheticDefaultImports": true,
-      "esModuleInterop": true,
+        "outDir": "./build/",
+        "noImplicitAny": true,
+        "module": "es2015",
+        "target": "es5",
+        "jsx": "react-jsx",
+        "allowJs": true,
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true
     },
     "ts-node": {
         "compilerOptions": {
