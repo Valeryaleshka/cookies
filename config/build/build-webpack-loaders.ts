@@ -5,6 +5,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 export default function buildWebpackLoaders(
   options: BuildOptions,
 ): ModuleOptions['rules'] {
+  const isDevMode = options.mode === 'development';
   console.log(options);
   return [
     {
@@ -13,18 +14,25 @@ export default function buildWebpackLoaders(
       exclude: /node_modules/,
     },
     {
-      test: /\.s[ac]ss$/i,
+      test: /\.less$/i,
       use: [
         {
           loader:
-            options.mode === 'development'
+            isDevMode
               ? 'style-loader'
               : MiniCssExtractPlugin.loader,
         },
         {
           loader: 'css-loader', // Translates CSS into CommonJS
+          options: {
+            sourceMap: true,
+            modules: {
+              auto: true, // Enable CSS modules for files matching `/\.module\.\w+$/i`
+              localIdentName: '[path][name]_class_[local]',
+            },
+          },
         },
-        'sass-loader',
+        'less-loader',
       ],
     },
   ];
