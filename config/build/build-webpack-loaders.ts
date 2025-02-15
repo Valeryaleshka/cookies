@@ -1,10 +1,11 @@
-import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import { ModuleOptions } from 'webpack';
 import { BuildOptions } from './types/webpack-types';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 export default function buildWebpackLoaders(
-  options: BuildOptions
+  options: BuildOptions,
 ): ModuleOptions['rules'] {
+  console.log(options);
   return [
     {
       test: /\.tsx?$/,
@@ -12,7 +13,7 @@ export default function buildWebpackLoaders(
       exclude: /node_modules/,
     },
     {
-      test: /\.less$/i,
+      test: /\.css$/i,
       use: [
         {
           loader:
@@ -22,14 +23,6 @@ export default function buildWebpackLoaders(
         },
         {
           loader: 'css-loader', // Translates CSS into CommonJS
-        },
-        {
-          loader: 'less-loader',
-          options: {
-            lessOptions: {
-              strictMath: true,
-            },
-          },
         },
       ],
     },
