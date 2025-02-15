@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import './App.scss';
+import classes from './App.module.scss';
 
 export const App = () => {
   const [count, setCount] = useState<number>(0);
@@ -8,7 +8,7 @@ export const App = () => {
   return (
     <div>
       <h1>{count}</h1>
-      <button className="redder" onClick={increment}>
+      <button className={classes.redder} onClick={increment}>
         Click
       </button>
     </div>
