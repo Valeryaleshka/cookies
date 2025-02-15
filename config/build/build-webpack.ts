@@ -8,7 +8,7 @@ import { BuildOptions } from './types/webpack-types';
 export default function buildWebpackConfig(
   options: BuildOptions,
 ): webpack.Configuration {
-  
+
   return {
     mode: options.mode,
     entry: options.paths.entry,
@@ -24,6 +24,7 @@ export default function buildWebpackConfig(
     module: {
       rules: buildWebpackLoaders(options),
     },
+    devtool: 'inline-source-map',
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
     },

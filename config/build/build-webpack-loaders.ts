@@ -13,7 +13,7 @@ export default function buildWebpackLoaders(
       exclude: /node_modules/,
     },
     {
-      test: /\.css$/i,
+      test: /\.s[ac]ss$/i,
       use: [
         {
           loader:
@@ -24,6 +24,7 @@ export default function buildWebpackLoaders(
         {
           loader: 'css-loader', // Translates CSS into CommonJS
         },
+        'sass-loader',
       ],
     },
   ];
