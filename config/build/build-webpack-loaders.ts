@@ -6,7 +6,7 @@ export default function buildWebpackLoaders(
   options: BuildOptions,
 ): ModuleOptions['rules'] {
   const isDevMode = options.mode === 'development';
-  console.log(options);
+
   return [
     {
       test: /\.tsx?$/,
@@ -17,18 +17,14 @@ export default function buildWebpackLoaders(
       test: /\.less$/i,
       use: [
         {
-          loader:
-            isDevMode
-              ? 'style-loader'
-              : MiniCssExtractPlugin.loader,
+          loader: isDevMode ? 'style-loader' : MiniCssExtractPlugin.loader,
         },
         {
-          loader: 'css-loader', // Translates CSS into CommonJS
+          loader: 'css-loader',
           options: {
-            sourceMap: true,
             modules: {
-              auto: true, // Enable CSS modules for files matching `/\.module\.\w+$/i`
-              localIdentName: '[path][name]_class_[local]',
+              auto: true,
+              localIdentName: isDevMode ? '[path][name]_class_[local]' : '[hash:base64:8]',
             },
           },
         },

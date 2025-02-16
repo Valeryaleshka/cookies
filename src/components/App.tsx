@@ -7,7 +7,7 @@ export const App = () => {
 
   return (
     <div>
-      <h1>{count}</h1>
+      <h1 className={classes.super}>{count}</h1>
       <button className={classes.redder} onClick={increment}>
         Click
       </button>
