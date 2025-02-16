@@ -2,6 +2,8 @@ import { ModuleOptions } from 'webpack';
 import { BuildOptions } from './types/webpack-types';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
+import ReactRefreshTypeScript from 'react-refresh-typescript';
+
 export default function buildWebpackLoaders(
   options: BuildOptions,
 ): ModuleOptions['rules'] {
@@ -10,9 +12,20 @@ export default function buildWebpackLoaders(
   return [
     {
       test: /\.tsx?$/,
-      use: 'ts-loader',
       exclude: /node_modules/,
+      use: [
+        {
+          loader: 'ts-loader',
+          options: {
+            getCustomTransformers: () => ({
+              before: [isDevMode && ReactRefreshTypeScript()].filter(Boolean),
+            }),
+            transpileOnly: isDevMode,
+          },
+        },
+      ],
     },
+
     {
       test: /\.less$/i,
       use: [
@@ -30,6 +43,10 @@ export default function buildWebpackLoaders(
         },
         'less-loader',
       ],
+    },
+    {
+      test: /\.(png|svg|jpg|jpeg|gif)$/i,
+      type: 'asset/resource',
     },
   ];
 }

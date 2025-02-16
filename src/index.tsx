@@ -1,5 +1,9 @@
 import { createRoot } from 'react-dom/client';
-import { App } from './components/App';
+import { App } from './app/App';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import AppAbout from '@/components/app-about/app-about';
+import AppShop from '@/components/app-shop/app-shop';
+
 
 const root = document.getElementById('root');
 
@@ -9,4 +13,24 @@ if (!root) {
 
 const container = createRoot(root);
 
-container.render(<App />);
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        path: '/about',
+        element: <AppAbout />,
+      },
+      {
+        path: '/shop',
+        element: <AppShop />,
+      },
+    ],
+  },
+]);
+
+
+container.render(
+  <RouterProvider router={router} />,
+);

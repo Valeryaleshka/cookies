@@ -24,9 +24,15 @@ export default function buildWebpackConfig(
     module: {
       rules: buildWebpackLoaders(options),
     },
+    watchOptions: {
+      ignored: /node_modules/,
+    },
     devtool: 'inline-source-map',
     resolve: {
       extensions: ['.tsx', '.ts', '.js'],
+      alias: {
+        '@': options.alias,
+      },
     },
   };
 }
