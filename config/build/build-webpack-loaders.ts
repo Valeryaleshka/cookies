@@ -2,8 +2,6 @@ import { ModuleOptions } from 'webpack';
 import { BuildOptions } from './types/webpack-types';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
-import ReactRefreshTypeScript from 'react-refresh-typescript';
-
 export default function buildWebpackLoaders(
   options: BuildOptions,
 ): ModuleOptions['rules'] {
@@ -13,19 +11,22 @@ export default function buildWebpackLoaders(
     {
       test: /\.tsx?$/,
       exclude: /node_modules/,
-      use: [
-        {
-          loader: 'ts-loader',
-          options: {
-            getCustomTransformers: () => ({
-              before: [isDevMode && ReactRefreshTypeScript()].filter(Boolean),
-            }),
-            transpileOnly: isDevMode,
-          },
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: [
+            '@babel/preset-env',
+            '@babel/preset-typescript',
+            [
+              '@babel/preset-react',
+              {
+                'runtime': 'automatic',
+              },
+            ],
+          ],
         },
-      ],
+      },
     },
-
     {
       test: /\.less$/i,
       use: [
