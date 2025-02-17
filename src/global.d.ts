@@ -6,3 +6,7 @@ declare module '*.module.less' {
   const className: IClassNames;
   export = className;
 }
+
+declare module '*.jpg';
+declare module '*.png';
+declare module '*.svg';
